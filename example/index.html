@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Hello World!</title>
+  <script src="./js/require.js" data-main="./js/main"></script>
+  <!-- <script src="../Source/Cesium.js"></script> -->
+  <style>
+      @import url(../Build/CesiumUnminified/Widgets/widgets.css);
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+          #toolbar {
+        background: rgba(42, 42, 42, 0.8);
+        padding: 4px;
+        border-radius: 4px;
+    }
+    #toolbar input {
+        vertical-align: middle;
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+  function onload(Cesium){
+
+    var viewshed3d;
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    
+    var pri = new Cesium.TrianglePrimitive({
+      positions:Cesium.Cartesian3.fromDegreesArrayHeights([-111.0, 40.0, 150000.0,-111,45,150000,-100,40.5,150000])
+    });
+    viewer.scene.primitives.add(pri);
+    // viewer.extend(Cesium.viewerCesium3DTilesInspectorMixin);
+    viewer.extend(Cesium.viewerCesiumInspectorMixin);
+    // var inspectorViewModel = viewer.cesium3DTilesInspector.viewModel;
+
+    var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+    handler.setInputAction(function(event) {
+        var cartesian = viewer.camera.pickEllipsoid(event.position);
+        if (cartesian) {
+            var cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+            var longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(8);
+            var latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(8);
+            console.log(longitudeString,latitudeString);
+
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+}
+    
+  </script>
+</body>
+</html>
