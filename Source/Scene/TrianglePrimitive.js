@@ -65,61 +65,7 @@ define([
 
 	};
 
-	TrianglePrimitive.prototype.updateHintLine = function() {
-
-		//顶点数组对象
-		var vertexArray = new VertexArray({
-			context: W,
-			attributes: Y,
-			indexBuffer: j
-		});
-		var W = r.context,
-		if (defined(this._drawLineCommand)) {
-			this._drawLineCommand.vertexArray.destroy();
-			this._drawLineCommand.vertexArray = X;
-			this._drawLineCommand.modelMatrix = this._modelMatrix;
-			this._drawLineCommand.boundingVolume = A;
-		} else {
-			var shaderProgram = ShaderProgram.fromCache({
-				context: W,
-				vertexShaderSource: "attribute vec3 position;\n" +
-					"uniform mat4 u_modelViewMatrix;\n" +
-					"void main()\n{\n" +
-					"gl_Position = czm_projection* u_modelViewMatrix* vec4(position.xyz,1.0);\n" +
-					"}",
-				fragmentShaderSource: "uniform vec4 u_bgColor;\n" +
-					"void main()\n{\n" +
-					"gl_FragColor = u_bgColor;\n" +
-					"}\n"
-			});
-			var renderState = RenderState.fromCache({
-				depthTest: {
-					enabled: false
-				}
-			});
-			K = this;
-			var uniformMap = {
-				u_bgColor: function() {
-					return Color.YELLOW
-				},
-				u_modelViewMatrix: function() {
-					return W.uniformState.modelView
-				}
-			};
-			this._drawLineCommand = new DrawCommand({
-				boundingVolume: A,
-				modelMatrix: K._modelMatrix,
-				primitiveType: PrimitiveType.LINES,
-				vertexArray: X,
-				shaderProgram: shaderProgram,
-				castShadows: !1,
-				receiveShadows: !1,
-				uniformMap: uniformMap,
-				renderState: renderState,
-				pass: Pass.OPAQUE
-			})
-		}
-	}
+	
 	TrianglePrimitive.prototype.sceneModeChanged = function(mode) {
 		return this._lastMode !== mode;
 	};
