@@ -2025,6 +2025,10 @@ define('Scene/Moon', function() {
     return Cesium['Moon'];
 });
 
+define('Scene/MyPrimitive', function() {
+    return Cesium['MyPrimitive'];
+});
+
 define('Scene/NeverTileDiscardPolicy', function() {
     return Cesium['NeverTileDiscardPolicy'];
 });

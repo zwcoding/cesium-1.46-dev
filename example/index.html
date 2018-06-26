@@ -44,6 +44,13 @@
     viewer.extend(Cesium.viewerCesiumInspectorMixin);
     // var inspectorViewModel = viewer.cesium3DTilesInspector.viewModel;
 
+   var my = new Cesium.MyPrimitive({
+      modelMatrix:Cesium.Transforms.headingPitchRollToFixedFrame(Cesium.Cartesian3.fromDegrees(-111.0, 40.0, 0.0), new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(0),0,0))
+    });
+    viewer.scene.primitives.add(my);
+
+    viewer.scene.globe.depthTestAgainstTerrain = true;
+
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
     handler.setInputAction(function(event) {
         var cartesian = viewer.camera.pickEllipsoid(event.position);

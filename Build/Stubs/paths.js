@@ -507,6 +507,7 @@ define(function() {
         'Scene/ModelNode' : '../Stubs/Cesium',
         'Scene/ModelUtility' : '../Stubs/Cesium',
         'Scene/Moon' : '../Stubs/Cesium',
+        'Scene/MyPrimitive' : '../Stubs/Cesium',
         'Scene/NeverTileDiscardPolicy' : '../Stubs/Cesium',
         'Scene/OIT' : '../Stubs/Cesium',
         'Scene/OrderedGroundPrimitiveCollection' : '../Stubs/Cesium',
